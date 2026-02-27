@@ -117,3 +117,70 @@ kubectl describe pod myapp
 ### Key takeaway
 
 > "Running `kubectl apply` kicks off a coordinated flow involving the API server, etcd, scheduler, kubelet, and container runtime — all working together to ensure your pod reaches its desired state."
+> 
+
+--------------
+
+So when user makes a request using cube CTL to create a pod on the Kubernetes cluster.
+
+Initially, user request is sent to API server component of Kubernetes.
+
+API server is part of the control plane and API server validates it.
+
+Performs authentication and authorization to see if user has the right permissions to apply configuration
+
+on the cluster.
+
+If user has the permissions.
+
+If user is authorized to create a pod, then API server forwards the request to scheduler.
+
+The scheduler identifies which node of the Kubernetes cluster is right for the pod.
+
+So scheduler looks at the pod specification, understands if there is any node affinity that is set,
+
+or any node label selector Elector or any tolerations on the board.
+
+Similarly, it looks for taints on the nodes, and it makes a decision which node of the Kubernetes
+
+cluster is right for the pod.
+
+It also takes into account which are the free nodes on the cluster.
+
+Finally, it makes a decision on which node the pod has to be scheduled.
+
+Now, once this decision is made, API server talks to the kubelet of that particular node and Kubelet
+
+invokes container runtime.
+
+So container runtime is needed to run the container.
+
+Typically within your pod, a container has to be executed or a container has to be run.
+
+So container runtime takes care of running the container.
+
+And this is how your pod is run on the Kubernetes cluster.
+
+And once the pod is run API server updates that information onto etcd, or it persists the object onto
+
+etcd.
+
+And as long as your pod is running fine, it's perfect.
+
+For some reason, if your pod goes down, there is a replica set controller which takes care of the
+
+pod, and this is managed by Controller manager component of Kubernetes.
+
+So these are the various components of Kubernetes and how they interact.
+
+When you run kubectl create or kubectl apply to deploy a pod onto Kubernetes.
+
+I'll also provide information in the description.
+
+You will find the notes.
+
+And you can also find this architecture diagram in the GitHub repository.
+
+So this is how you explain when interviewer asks you how various components of Kubernetes interact to
+
+run a pod on Kubernetes cluster.
