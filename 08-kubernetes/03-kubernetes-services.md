@@ -99,3 +99,35 @@ This service will:
 ### Key takeaway
 
 > "Services in Kubernetes abstract away pod IP changes and provide a consistent way to communicate with workloads. They’re essential for both internal discovery and external exposure of applications."
+
+----------
+
+Service takes care of a very critical activity which is service discovery.
+
+For example, when pod A wants to communicate with pod B, basically internal communication in Kubernetes
+
+cluster because pods are ephemeral in nature, pod A cannot communicate with pod B with the IP address.
+
+Because when pod B goes down, IP address might change.
+
+So to avoid this scenario in Kubernetes, pod A communicates with the service associated with the pod
+
+B and service communicates with pod B, not using the IP address, but using an advanced algorithm called
+
+labels and selectors.
+
+Because service identifies the pods using labels and selectors, request from pod A to pod B is never
+
+terminated.
+
+Service acts as a middleman.
+
+This concept is called as service discovery.
+
+Not only service discovery, Kubernetes service can also help with default load balancing.
+
+If there are multiple replicas of a pod when requests are sent to service, service ensures requests
+
+are split between two replicas or multiple replicas of the pod.
+
+By default, it follows round robin algorithm.
